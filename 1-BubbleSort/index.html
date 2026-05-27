@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bubble Sort Visualizer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="container">
+
+  <div class="top">
+    <div class="title-box">
+      <div class="badge" data-i18n="badge">Algoritmus #1</div>
+      <h1>Bubble Sort</h1>
+      <p data-i18n="subtitle">Jednoduchý algoritmus pro třídění čísel</p>
+    </div>
+
+    <div class="controls">
+      <div class="language-switcher">
+
+        <button id="czBtn" class="lang-btn active">
+            <img src="assets/cz.svg" alt="Čeština">
+        </button>
+
+        <button id="enBtn" class="lang-btn">
+            <img src="assets/gb.svg" alt="English">
+        </button>
+
+      </div>
+      <button id="startBtn" class="start" data-i18n="start">▶ Start</button>
+      <button id="resetBtn" class="reset" data-i18n="reset">⟳ Reset</button>
+      <button id="slowerBtn" class="speed" data-i18n="slower">🐢 Pomaleji</button>
+      <button id="fasterBtn" class="speed" data-i18n="faster">⚡ Rychleji</button>
+    </div>
+  </div>
+
+  <div class="visualization" id="visualization"></div>
+
+  <div class="info-panel">
+    <div class="card">
+      <h3 data-i18n="statusTitle">📌 Co se právě děje?</h3>
+      <div class="status" id="statusText"></div>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="explanationTitle">🧠 Jak Bubble Sort funguje?</h3>
+      <div class="explanation" id="explanationText"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
