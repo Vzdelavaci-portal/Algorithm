@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Insertion Sort Visualizer</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <div class="top">
+
+    <div class="title">
+      <div class="badge" data-i18n="badge">Algoritmus #3</div>
+
+      <h1>Insertion Sort</h1>
+
+      <p data-i18n="subtitle">
+        Postupné vkládání hodnot na správné místo
+      </p>
+    </div>
+
+    <div class="controls">
+
+      <div class="language-switcher">
+
+        <button id="czBtn" class="lang-btn active">
+          <img src="assets/cz.svg" alt="CZ">
+        </button>
+
+        <button id="enBtn" class="lang-btn">
+          <img src="assets/gb.svg" alt="EN">
+        </button>
+
+      </div>
+
+      <button class="start" id="startBtn" data-i18n="start">
+        ▶ Start
+      </button>
+
+      <button class="reset" id="resetBtn" data-i18n="reset">
+        ⟳ Reset
+      </button>
+
+      <button class="speed" id="slowBtn" data-i18n="slower">
+        🐢 Pomaleji
+      </button>
+
+      <button class="speed" id="fastBtn" data-i18n="faster">
+        ⚡ Rychleji
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="visualization" id="visualization"></div>
+
+  <div class="bottom">
+
+    <div class="card">
+      <h3 data-i18n="statusTitle">
+        📌 Co se právě děje?
+      </h3>
+
+      <div class="status" id="statusText"></div>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="explanationTitle">
+        🧠 Jak Insertion Sort funguje?
+      </h3>
+
+      <div class="description" id="descriptionText"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
