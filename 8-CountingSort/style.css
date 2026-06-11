@@ -1,0 +1,290 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #020617;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 28px;
+  padding: 30px;
+  box-shadow:
+    0 0 40px rgba(14, 165, 233, 0.12),
+    0 0 100px rgba(168, 85, 247, 0.06);
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.title h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.title p {
+  color: #94a3b8;
+  font-size: 18px;
+}
+
+.badge {
+  display: inline-block;
+  background: #0ea5e9;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+button {
+  border: none;
+  padding: 14px 18px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  transition: 0.25s;
+  color: white;
+}
+
+button:hover {
+  transform: translateY(-3px);
+}
+
+.start {
+  background: #22c55e;
+  color: black;
+}
+
+.reset {
+  background: #ef4444;
+}
+
+.speed {
+  background: #3b82f6;
+}
+
+.language-switcher {
+  display: flex;
+  gap: 10px;
+}
+
+.lang-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: #1e293b;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.lang-btn img {
+  width: 34px;
+  height: 34px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.lang-btn.active {
+  border-color: #22c55e;
+  box-shadow:
+    0 0 15px rgba(34, 197, 94, 0.5),
+    0 0 30px rgba(34, 197, 94, 0.2);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.stat {
+  background: #111827;
+  border: 1px solid #1e293b;
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.stat span {
+  display: block;
+  color: #94a3b8;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.stat strong {
+  font-size: 26px;
+  color: #38bdf8;
+}
+
+.section {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 24px;
+  padding: 20px;
+  margin-bottom: 22px;
+}
+
+.section h3 {
+  color: #38bdf8;
+  margin-bottom: 16px;
+}
+
+.array-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.array-item {
+  min-width: 58px;
+  padding: 16px;
+  border-radius: 16px;
+  text-align: center;
+  font-weight: bold;
+  background: #1e293b;
+  border: 1px solid #334155;
+  transition: 0.25s;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.08);
+}
+
+.array-item.active {
+  background: #f97316;
+  color: white;
+  box-shadow: 0 0 22px rgba(249, 115, 22, 0.45);
+}
+
+.array-item.done {
+  background: #22c55e;
+  color: black;
+}
+
+.output .array-item {
+  background: #14532d;
+  border-color: #22c55e;
+}
+
+.output .array-item.active {
+  background: #22c55e;
+  color: black;
+}
+
+.count-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+  gap: 12px;
+}
+
+.count-box {
+  background: #111827;
+  border: 1px solid #334155;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: 0.25s;
+}
+
+.count-box.active {
+  border-color: #f97316;
+  box-shadow: 0 0 24px rgba(249, 115, 22, 0.35);
+  transform: translateY(-4px);
+}
+
+.count-index {
+  background: #1e293b;
+  color: #94a3b8;
+  padding: 10px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.count-value {
+  padding: 18px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #a855f7;
+}
+
+.count-box.active .count-value {
+  color: #f97316;
+}
+
+.bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.card {
+  background: #111827;
+  border: 1px solid #1e293b;
+  border-radius: 20px;
+  padding: 22px;
+}
+
+.card h3 {
+  color: #38bdf8;
+  margin-bottom: 14px;
+}
+
+.status {
+  font-size: 20px;
+  line-height: 1.7;
+}
+
+.description {
+  color: #cbd5e1;
+  line-height: 1.8;
+}
+
+.highlight {
+  color: #a855f7;
+  font-weight: bold;
+}
+
+@media (max-width: 900px) {
+  .bottom,
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .title h1 {
+    font-size: 32px;
+  }
+
+  .array-item {
+    min-width: 48px;
+    padding: 12px;
+  }
+}
