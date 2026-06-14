@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Radix Sort Visualizer</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="container">
+
+  <div class="top">
+    <div class="title">
+      <div class="badge" data-i18n="badge">Algoritmus #9</div>
+      <h1>Radix Sort</h1>
+      <p data-i18n="subtitle">Třídění čísel postupně podle jednotlivých číslic</p>
+    </div>
+
+    <div class="controls">
+      <div class="language-switcher">
+        <button id="czBtn" class="lang-btn active">
+          <img src="assets/cz.svg" alt="CZ">
+        </button>
+
+        <button id="enBtn" class="lang-btn">
+          <img src="assets/gb.svg" alt="EN">
+        </button>
+      </div>
+
+      <button class="start" id="startBtn" data-i18n="start">▶ Start</button>
+      <button class="reset" id="resetBtn" data-i18n="reset">⟳ Reset</button>
+      <button class="speed" id="slowBtn" data-i18n="slower">🐢 Pomaleji</button>
+      <button class="speed" id="fastBtn" data-i18n="faster">⚡ Rychleji</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <span data-i18n="currentPass">Aktuální průchod</span>
+      <strong id="currentPass">-</strong>
+    </div>
+
+    <div class="stat">
+      <span data-i18n="currentDigit">Aktuální číslice</span>
+      <strong id="currentDigit">-</strong>
+    </div>
+
+    <div class="stat">
+      <span data-i18n="processed">Zpracováno</span>
+      <strong id="processedCount">0</strong>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3 data-i18n="inputTitle">📥 Vstupní pole</h3>
+    <div class="array-row" id="inputArray"></div>
+  </div>
+
+  <div class="section">
+    <h3 data-i18n="bucketTitle">🪣 Buckety 0–9</h3>
+    <div class="buckets" id="buckets"></div>
+  </div>
+
+  <div class="section">
+    <h3 data-i18n="outputTitle">📤 Nové pole po průchodu</h3>
+    <div class="array-row output" id="outputArray"></div>
+  </div>
+
+  <div class="bottom">
+    <div class="card">
+      <h3 data-i18n="statusTitle">📌 Co se právě děje?</h3>
+      <div class="status" id="statusText"></div>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="explanationTitle">🧠 Jak Radix Sort funguje?</h3>
+      <div class="description" id="descriptionText"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
