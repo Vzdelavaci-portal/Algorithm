@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Binary Search Visualizer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="container">
+
+  <div class="top">
+    <div class="title">
+      <div class="badge" data-i18n="badge">Algoritmus #12</div>
+      <h1>Binary Search</h1>
+      <p data-i18n="subtitle">Rychlé vyhledávání půlením seřazeného pole</p>
+    </div>
+
+    <div class="controls">
+      <div class="language-switcher">
+        <button id="czBtn" class="lang-btn active">
+          <img src="assets/cz.svg" alt="CZ">
+        </button>
+
+        <button id="enBtn" class="lang-btn">
+          <img src="assets/gb.svg" alt="EN">
+        </button>
+      </div>
+
+      <button class="start" id="startBtn" data-i18n="start">▶ Start</button>
+      <button class="reset" id="resetBtn" data-i18n="reset">⟳ Reset</button>
+      <button class="target" id="targetBtn" data-i18n="newTarget">🎯 Nový cíl</button>
+      <button class="speed" id="slowBtn" data-i18n="slower">🐢 Pomaleji</button>
+      <button class="speed" id="fastBtn" data-i18n="faster">⚡ Rychleji</button>
+    </div>
+  </div>
+
+  <div class="target-panel">
+    <label for="targetInput" data-i18n="targetLabel">Hledaná hodnota</label>
+    <input type="number" id="targetInput" />
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <span data-i18n="targetValue">Hledaná hodnota</span>
+      <strong id="targetValue">-</strong>
+    </div>
+
+    <div class="stat">
+      <span data-i18n="middleValue">Aktuální střed</span>
+      <strong id="middleValue">-</strong>
+    </div>
+
+    <div class="stat">
+      <span data-i18n="comparisons">Porovnání</span>
+      <strong id="comparisonsCount">0</strong>
+    </div>
+
+    <div class="stat">
+      <span data-i18n="remaining">Zbývá hodnot</span>
+      <strong id="remainingCount">-</strong>
+    </div>
+  </div>
+
+  <div class="search-space">
+    <div class="space-label" data-i18n="spaceLabel">Search Space</div>
+    <div class="space-track">
+      <div class="space-fill" id="spaceFill"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3 data-i18n="arrayTitle">📦 Seřazené pole</h3>
+    <div class="array-row" id="array"></div>
+  </div>
+
+  <div class="compare-panel">
+    <div>
+      <span data-i18n="linearLabel">Linear Search</span>
+      <strong id="linearInfo">-</strong>
+    </div>
+
+    <div>
+      <span data-i18n="binaryLabel">Binary Search</span>
+      <strong id="binaryInfo">-</strong>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="card">
+      <h3 data-i18n="statusTitle">📌 Co se právě děje?</h3>
+      <div class="status" id="statusText"></div>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="explanationTitle">🧠 Jak Binary Search funguje?</h3>
+      <div class="description" id="descriptionText"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
