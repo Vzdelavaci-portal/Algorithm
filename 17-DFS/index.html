@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>DFS Visualizer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="container">
+
+  <div class="top">
+    <div class="title">
+      <div class="badge" data-i18n="badge">Algoritmus #17</div>
+      <h1>Depth-First Search</h1>
+      <p data-i18n="subtitle">Procházení grafu do hloubky pomocí zásobníku</p>
+    </div>
+
+    <div class="controls">
+      <div class="language-switcher">
+        <button id="czBtn" class="lang-btn active">
+          <img src="assets/cz.svg" alt="CZ">
+        </button>
+
+        <button id="enBtn" class="lang-btn">
+          <img src="assets/gb.svg" alt="EN">
+        </button>
+      </div>
+
+      <button class="start" id="startBtn" data-i18n="start">▶ Start</button>
+      <button class="reset" id="resetBtn" data-i18n="reset">⟳ Reset</button>
+      <button class="speed" id="slowBtn" data-i18n="slower">🐢 Pomaleji</button>
+      <button class="speed" id="fastBtn" data-i18n="faster">⚡ Rychleji</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <span data-i18n="startNode">Startovní uzel</span>
+      <strong id="startNodeValue">A</strong>
+    </div>
+
+    <div class="stat">
+      <span data-i18n="currentNode">Aktuální uzel</span>
+      <strong id="currentNodeValue">-</strong>
+    </div>
+
+    <div class="stat">
+      <span data-i18n="visitedCount">Navštíveno</span>
+      <strong id="visitedCount">0</strong>
+    </div>
+
+    <div class="stat">
+      <span data-i18n="steps">Kroky</span>
+      <strong id="stepsCount">0</strong>
+    </div>
+  </div>
+
+  <div class="graph-section">
+    <h3 data-i18n="graphTitle">🌲 Graf</h3>
+
+    <div class="graph" id="graph">
+      <svg id="edges"></svg>
+    </div>
+  </div>
+
+  <div class="info-grid">
+
+    <div class="panel">
+      <h3 data-i18n="stackTitle">📚 Zásobník</h3>
+      <div class="stack" id="stack"></div>
+    </div>
+
+    <div class="panel">
+      <h3 data-i18n="visitedTitle">✅ Navštívené uzly</h3>
+      <div class="visited" id="visitedList"></div>
+    </div>
+
+  </div>
+
+  <div class="bottom">
+    <div class="card">
+      <h3 data-i18n="statusTitle">📌 Co se právě děje?</h3>
+      <div class="status" id="statusText"></div>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="explanationTitle">🧠 Jak DFS funguje?</h3>
+      <div class="description" id="descriptionText"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
