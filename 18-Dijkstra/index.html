@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Dijkstra's Algorithm Visualizer</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="container">
+
+  <header class="top">
+    <div class="title">
+      <div class="badge" data-i18n="badge">
+        Algoritmus #18
+      </div>
+
+      <h1>Dijkstra's Algorithm</h1>
+
+      <p data-i18n="subtitle">
+        Hledání nejkratší cesty v ohodnoceném grafu
+      </p>
+    </div>
+
+    <div class="controls">
+
+      <div class="language-switcher">
+        <button
+          id="czBtn"
+          class="lang-btn active"
+          type="button"
+          aria-label="Čeština"
+        >
+          <img src="assets/cz.svg" alt="CZ" />
+        </button>
+
+        <button
+          id="enBtn"
+          class="lang-btn"
+          type="button"
+          aria-label="English"
+        >
+          <img src="assets/gb.svg" alt="EN" />
+        </button>
+      </div>
+
+      <button
+        id="startBtn"
+        class="start"
+        type="button"
+        data-i18n="start"
+      >
+        ▶ Start
+      </button>
+
+      <button
+        id="resetBtn"
+        class="reset"
+        type="button"
+        data-i18n="reset"
+      >
+        ⟳ Reset
+      </button>
+
+      <button
+        id="slowBtn"
+        class="speed"
+        type="button"
+        data-i18n="slower"
+      >
+        🐢 Pomaleji
+      </button>
+
+      <button
+        id="fastBtn"
+        class="speed"
+        type="button"
+        data-i18n="faster"
+      >
+        ⚡ Rychleji
+      </button>
+
+    </div>
+  </header>
+
+  <section class="selection-panel">
+
+    <div class="selection-buttons">
+      <button
+        id="selectStartBtn"
+        class="selection-btn active"
+        type="button"
+        data-i18n="selectStart"
+      >
+        🟪 Vybrat start
+      </button>
+
+      <button
+        id="selectTargetBtn"
+        class="selection-btn"
+        type="button"
+        data-i18n="selectTarget"
+      >
+        🎯 Vybrat cíl
+      </button>
+    </div>
+
+    <div class="selection-info">
+
+      <div>
+        <span data-i18n="startNode">Startovní uzel</span>
+        <strong id="startNodeValue">A</strong>
+      </div>
+
+      <div>
+        <span data-i18n="targetNode">Cílový uzel</span>
+        <strong id="targetNodeValue">F</strong>
+      </div>
+
+      <div>
+        <span data-i18n="selectionMode">Režim výběru</span>
+        <strong id="selectionModeValue">Start</strong>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="stats">
+
+    <article class="stat">
+      <span data-i18n="currentNode">Aktuální uzel</span>
+      <strong id="currentNodeValue">-</strong>
+    </article>
+
+    <article class="stat">
+      <span data-i18n="visitedNodes">Dokončené uzly</span>
+      <strong id="visitedCount">0</strong>
+    </article>
+
+    <article class="stat">
+      <span data-i18n="relaxations">Aktualizace vzdáleností</span>
+      <strong id="relaxationsCount">0</strong>
+    </article>
+
+    <article class="stat">
+      <span data-i18n="shortestDistance">Nejkratší vzdálenost</span>
+      <strong id="shortestDistanceValue">∞</strong>
+    </article>
+
+  </section>
+
+  <section class="graph-section">
+    <div class="section-heading">
+      <h2 data-i18n="graphTitle">
+        🛣️ Ohodnocený graf
+      </h2>
+
+      <p data-i18n="graphHint">
+        Kliknutím na uzel nastav start nebo cíl podle zvoleného režimu.
+      </p>
+    </div>
+
+    <div id="graph" class="graph">
+      <svg id="edgesSvg" aria-hidden="true"></svg>
+    </div>
+  </section>
+
+  <section class="algorithm-grid">
+
+    <article class="panel">
+      <h2 data-i18n="queueTitle">
+        🏁 Prioritní fronta
+      </h2>
+
+      <div id="priorityQueue" class="priority-queue"></div>
+    </article>
+
+    <article class="panel">
+      <h2 data-i18n="distanceTitle">
+        📏 Vzdálenosti
+      </h2>
+
+      <div id="distanceTable" class="distance-table"></div>
+    </article>
+
+  </section>
+
+  <section class="path-panel">
+    <h2 data-i18n="pathTitle">
+      🟩 Nejkratší cesta
+    </h2>
+
+    <div id="pathResult" class="path-result">
+      -
+    </div>
+  </section>
+
+  <section class="bottom">
+
+    <article class="card">
+      <h2 data-i18n="statusTitle">
+        📌 Co se právě děje?
+      </h2>
+
+      <div id="statusText" class="status"></div>
+    </article>
+
+    <article class="card">
+      <h2 data-i18n="explanationTitle">
+        🧠 Jak Dijkstrův algoritmus funguje?
+      </h2>
+
+      <div id="descriptionText" class="description"></div>
+    </article>
+
+  </section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
