@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>A* Search Visualizer</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="badge" data-i18n="badge">Algoritmus #19</div>
+      <h1>A* Search</h1>
+      <p data-i18n="subtitle">
+        Hledání nejkratší cesty pomocí ceny pohybu a heuristiky
+      </p>
+    </div>
+
+    <div class="language-switcher">
+      <button id="czBtn" class="lang-btn active" type="button">
+        <img src="assets/cz.svg" alt="CZ">
+      </button>
+
+      <button id="enBtn" class="lang-btn" type="button">
+        <img src="assets/gb.svg" alt="EN">
+      </button>
+    </div>
+
+    <div class="main-controls">
+      <button id="startBtn" class="start" data-i18n="start">▶ Start</button>
+      <button id="resetBtn" class="reset" data-i18n="reset">⟳ Reset</button>
+    </div>
+
+    <div class="edit-buttons">
+      <button
+        id="wallModeBtn"
+        class="edit-btn active"
+        data-i18n="wallMode"
+      >
+        ⬛ Překážky
+      </button>
+
+      <button
+        id="startModeBtn"
+        class="edit-btn"
+        data-i18n="startMode"
+      >
+        🟪 Start
+      </button>
+
+      <button
+        id="goalModeBtn"
+        class="edit-btn"
+        data-i18n="goalMode"
+      >
+        🎯 Cíl
+      </button>
+    </div>
+
+    <div class="secondary-controls">
+      <button
+        id="clearWallsBtn"
+        class="secondary"
+        data-i18n="clearWalls"
+      >
+        🧹 Smazat
+      </button>
+
+      <button
+        id="randomWallsBtn"
+        class="secondary"
+        data-i18n="randomWalls"
+      >
+        🎲 Náhodné
+      </button>
+    </div>
+
+    <div class="speed-controls">
+      <button id="slowBtn" class="speed" data-i18n="slower">
+        🐢 Pomaleji
+      </button>
+
+      <button id="fastBtn" class="speed" data-i18n="faster">
+        ⚡ Rychleji
+      </button>
+    </div>
+
+    <div class="positions">
+      <div>
+        <span data-i18n="startPosition">Start</span>
+        <strong id="startPositionValue">3, 3</strong>
+      </div>
+
+      <div>
+        <span data-i18n="goalPosition">Cíl</span>
+        <strong id="goalPositionValue">13, 23</strong>
+      </div>
+    </div>
+
+    <div class="score-grid">
+      <div class="score-box">
+        <span>g</span>
+        <strong id="gValue">-</strong>
+        <small data-i18n="gDescription">Cena od startu</small>
+      </div>
+
+      <div class="score-box">
+        <span>h</span>
+        <strong id="hValue">-</strong>
+        <small data-i18n="hDescription">Odhad do cíle</small>
+      </div>
+
+      <div class="score-box total">
+        <span>f = g + h</span>
+        <strong id="fValue">-</strong>
+        <small data-i18n="fDescription">Celkové skóre</small>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="mini-stat">
+        <span data-i18n="openSetSize">Open Set</span>
+        <strong id="openSetSizeValue">0</strong>
+      </div>
+
+      <div class="mini-stat">
+        <span data-i18n="closedSetSize">Closed Set</span>
+        <strong id="closedSetSizeValue">0</strong>
+      </div>
+
+      <div class="mini-stat">
+        <span data-i18n="pathLength">Délka cesty</span>
+        <strong id="pathLengthValue">-</strong>
+      </div>
+
+      <div class="mini-stat">
+        <span data-i18n="steps">Kroky</span>
+        <strong id="stepsValue">0</strong>
+      </div>
+    </div>
+
+  </aside>
+
+  <main class="workspace">
+
+    <div class="workspace-header">
+      <div>
+        <h2 data-i18n="gridTitle">⭐ Pathfinding Grid</h2>
+        <p data-i18n="gridHint">
+          Kliknutím nebo tažením vytvářej překážky.
+        </p>
+      </div>
+
+      <div class="current-cell">
+        <span data-i18n="currentCell">Aktuální políčko</span>
+        <strong id="currentCellValue">-</strong>
+      </div>
+    </div>
+
+    <div class="grid-area">
+      <div id="grid" class="grid"></div>
+    </div>
+
+    <div class="bottom-bar">
+
+      <div class="status-panel">
+        <h3 data-i18n="statusTitle">📌 Co se právě děje?</h3>
+        <div id="statusText" class="status"></div>
+      </div>
+
+      <div class="sets-panel">
+        <div class="set-box">
+          <h3 data-i18n="openTitle">🟦 Open Set</h3>
+          <div id="openSetList" class="set-list"></div>
+        </div>
+
+        <div class="set-box">
+          <h3 data-i18n="closedTitle">🟥 Closed Set</h3>
+          <div id="closedSetList" class="set-list"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="pathResult" class="path-result">-</div>
+
+    <div id="descriptionText" class="description compact-description"></div>
+
+  </main>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
