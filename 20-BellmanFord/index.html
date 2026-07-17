@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Bellman-Ford Algorithm Visualizer</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<div class="container">
+
+  <header class="top">
+
+    <div class="title">
+      <div class="badge" data-i18n="badge">
+        Algoritmus #20
+      </div>
+
+      <h1>Bellman-Ford Algorithm</h1>
+
+      <p data-i18n="subtitle">
+        Nejkratší cesty se zápornými hranami a detekcí záporných cyklů
+      </p>
+    </div>
+
+    <div class="controls">
+
+      <div class="language-switcher">
+
+        <button
+          id="czBtn"
+          class="lang-btn active"
+          type="button"
+          aria-label="Čeština"
+        >
+          <img src="assets/cz.svg" alt="CZ" />
+        </button>
+
+        <button
+          id="enBtn"
+          class="lang-btn"
+          type="button"
+          aria-label="English"
+        >
+          <img src="assets/gb.svg" alt="EN" />
+        </button>
+
+      </div>
+
+      <button
+        id="startBtn"
+        class="start"
+        type="button"
+        data-i18n="start"
+      >
+        ▶ Start
+      </button>
+
+      <button
+        id="resetBtn"
+        class="reset"
+        type="button"
+        data-i18n="reset"
+      >
+        ⟳ Reset
+      </button>
+
+      <button
+        id="negativeCycleBtn"
+        class="cycle"
+        type="button"
+        data-i18n="enableCycle"
+      >
+        🔁 Zapnout záporný cyklus
+      </button>
+
+      <button
+        id="slowBtn"
+        class="speed"
+        type="button"
+        data-i18n="slower"
+      >
+        🐢 Pomaleji
+      </button>
+
+      <button
+        id="fastBtn"
+        class="speed"
+        type="button"
+        data-i18n="faster"
+      >
+        ⚡ Rychleji
+      </button>
+
+    </div>
+
+  </header>
+
+  <section class="selection-panel">
+
+    <div>
+      <span data-i18n="startNode">
+        Startovní uzel
+      </span>
+
+      <strong id="startNodeValue">A</strong>
+    </div>
+
+    <div>
+      <span data-i18n="graphMode">
+        Režim grafu
+      </span>
+
+      <strong id="graphModeValue">Bez záporného cyklu</strong>
+    </div>
+
+    <div>
+      <span data-i18n="iteration">
+        Iterace
+      </span>
+
+      <strong id="iterationValue">0 / 4</strong>
+    </div>
+
+    <div>
+      <span data-i18n="currentEdge">
+        Aktuální hrana
+      </span>
+
+      <strong id="currentEdgeValue">-</strong>
+    </div>
+
+  </section>
+
+  <section class="stats">
+
+    <article class="stat">
+      <span data-i18n="relaxations">
+        Relaxace
+      </span>
+
+      <strong id="relaxationsValue">0</strong>
+    </article>
+
+    <article class="stat">
+      <span data-i18n="updates">
+        Aktualizace
+      </span>
+
+      <strong id="updatesValue">0</strong>
+    </article>
+
+    <article class="stat">
+      <span data-i18n="processedEdges">
+        Zkontrolované hrany
+      </span>
+
+      <strong id="processedEdgesValue">0</strong>
+    </article>
+
+    <article class="stat">
+      <span data-i18n="negativeCycle">
+        Záporný cyklus
+      </span>
+
+      <strong id="negativeCycleValue">Ne</strong>
+    </article>
+
+  </section>
+
+  <section class="main-layout">
+
+    <article class="graph-panel">
+
+      <div class="section-heading">
+
+        <div>
+          <h2 data-i18n="graphTitle">
+            🔁 Orientovaný ohodnocený graf
+          </h2>
+
+          <p data-i18n="graphHint">
+            Kliknutím na uzel můžeš změnit startovní bod.
+          </p>
+        </div>
+
+        <div class="iteration-badge">
+          <span data-i18n="iterationLabel">
+            Iteration
+          </span>
+
+          <strong id="iterationBadgeValue">0 / 4</strong>
+        </div>
+
+      </div>
+
+      <div id="graph" class="graph">
+        <svg id="edgesSvg"></svg>
+      </div>
+
+    </article>
+
+    <aside class="sidebar">
+
+      <article class="panel">
+
+        <h2 data-i18n="distanceTitle">
+          📏 Vzdálenosti
+        </h2>
+
+        <div
+          id="distanceTable"
+          class="distance-table"
+        ></div>
+
+      </article>
+
+      <article class="panel">
+
+        <h2 data-i18n="calculationTitle">
+          🧮 Výpočet relaxace
+        </h2>
+
+        <div class="calculation-grid">
+
+          <div class="calculation-box">
+            <span>dist[u]</span>
+            <strong id="fromDistanceValue">-</strong>
+          </div>
+
+          <div class="calculation-box">
+            <span>weight</span>
+            <strong id="edgeWeightValue">-</strong>
+          </div>
+
+          <div class="calculation-box">
+            <span>dist[v]</span>
+            <strong id="toDistanceValue">-</strong>
+          </div>
+
+          <div class="calculation-box result">
+            <span>dist[u] + weight</span>
+            <strong id="candidateValue">-</strong>
+          </div>
+
+        </div>
+
+      </article>
+
+      <article class="panel">
+
+        <h2 data-i18n="predecessorTitle">
+          🔗 Předchozí uzly
+        </h2>
+
+        <div
+          id="predecessorTable"
+          class="predecessor-table"
+        ></div>
+
+      </article>
+
+    </aside>
+
+  </section>
+
+  <section class="edge-list-panel">
+
+    <h2 data-i18n="edgeListTitle">
+      🧾 Pořadí relaxace hran
+    </h2>
+
+    <div
+      id="edgeList"
+      class="edge-list"
+    ></div>
+
+  </section>
+
+  <section class="cycle-panel">
+
+    <div>
+
+      <h2 data-i18n="cycleCheckTitle">
+        🔍 Kontrola záporného cyklu
+      </h2>
+
+      <p id="cycleCheckText"></p>
+
+    </div>
+
+    <div
+      id="cycleResult"
+      class="cycle-result neutral"
+    >
+      -
+    </div>
+
+  </section>
+
+  <section class="bottom">
+
+    <article class="card">
+
+      <h2 data-i18n="statusTitle">
+        📌 Co se právě děje?
+      </h2>
+
+      <div
+        id="statusText"
+        class="status"
+      ></div>
+
+    </article>
+
+    <article class="card">
+
+      <h2 data-i18n="explanationTitle">
+        🧠 Jak Bellman-Ford funguje?
+      </h2>
+
+      <div
+        id="descriptionText"
+        class="description"
+      ></div>
+
+    </article>
+
+  </section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
