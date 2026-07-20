@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Interactive Floyd-Warshall Algorithm visualization."
+    >
+
+    <title>Floyd-Warshall Algorithm Visualizer</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <span class="algorithm-number" data-i18n="algorithmNumber">
+                Algoritmus #21
+            </span>
+
+            <h1>Floyd-Warshall</h1>
+
+            <p data-i18n="subtitle">
+                Nejkratší cesty mezi všemi dvojicemi vrcholů.
+            </p>
+
+        </div>
+
+        <div class="language-switch">
+
+            <button
+                id="czBtn"
+                class="language-btn active"
+                type="button"
+            >
+                🇨🇿 CZ
+            </button>
+
+            <button
+                id="enBtn"
+                class="language-btn"
+                type="button"
+            >
+                🇬🇧 EN
+            </button>
+
+        </div>
+
+        <section class="sidebar-section">
+
+            <h2 data-i18n="controlsTitle">
+                Ovládání
+            </h2>
+
+            <div class="control-grid">
+
+                <button
+                    id="startBtn"
+                    class="button button-primary"
+                    type="button"
+                    data-i18n="start"
+                >
+                    ▶ Start
+                </button>
+
+                <button
+                    id="pauseBtn"
+                    class="button button-secondary"
+                    type="button"
+                    data-i18n="pause"
+                >
+                    ⏸ Pauza
+                </button>
+
+                <button
+                    id="stepBtn"
+                    class="button button-secondary"
+                    type="button"
+                    data-i18n="step"
+                >
+                    ⏭ Krok
+                </button>
+
+                <button
+                    id="resetBtn"
+                    class="button button-danger"
+                    type="button"
+                    data-i18n="reset"
+                >
+                    ↻ Reset
+                </button>
+
+                <button
+                    id="randomBtn"
+                    class="button button-purple full"
+                    type="button"
+                    data-i18n="randomGraph"
+                >
+                    🎲 Náhodný graf
+                </button>
+
+            </div>
+
+        </section>
+
+        <section class="sidebar-section">
+
+            <h2 data-i18n="speedTitle">
+                Rychlost animace
+            </h2>
+
+            <input
+                id="speedRange"
+                type="range"
+                min="100"
+                max="1600"
+                step="100"
+                value="700"
+            >
+
+            <div class="range-labels">
+                <span data-i18n="fast">Rychle</span>
+                <strong id="speedValue">700 ms</strong>
+                <span data-i18n="slow">Pomalu</span>
+            </div>
+
+        </section>
+
+        <section class="sidebar-section stats-section">
+
+            <h2 data-i18n="statisticsTitle">
+                Statistiky
+            </h2>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <span data-i18n="currentK">
+                        Mezivrchol k
+                    </span>
+
+                    <strong id="currentKValue">-</strong>
+                </div>
+
+                <div class="stat">
+                    <span data-i18n="currentPair">
+                        Aktuální dvojice
+                    </span>
+
+                    <strong id="currentPairValue">-</strong>
+                </div>
+
+                <div class="stat">
+                    <span data-i18n="processedCells">
+                        Zpracované buňky
+                    </span>
+
+                    <strong id="processedValue">0</strong>
+                </div>
+
+                <div class="stat">
+                    <span data-i18n="matrixUpdates">
+                        Aktualizace
+                    </span>
+
+                    <strong id="updatesValue">0</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="sidebar-section legend-section">
+
+            <h2 data-i18n="legendTitle">
+                Legenda
+            </h2>
+
+            <div class="legend">
+
+                <div>
+                    <span class="legend-color current-cell"></span>
+                    <span data-i18n="legendCurrent">
+                        Kontrolovaná buňka
+                    </span>
+                </div>
+
+                <div>
+                    <span class="legend-color intermediate-cell"></span>
+                    <span data-i18n="legendIntermediate">
+                        Cesta přes k
+                    </span>
+                </div>
+
+                <div>
+                    <span class="legend-color updated-cell"></span>
+                    <span data-i18n="legendUpdated">
+                        Nová kratší cesta
+                    </span>
+                </div>
+
+                <div>
+                    <span class="legend-color negative-cell"></span>
+                    <span data-i18n="legendNegative">
+                        Záporný cyklus
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <span class="eyebrow" data-i18n="eyebrow">
+                    All-Pairs Shortest Paths
+                </span>
+
+                <h2 data-i18n="pageTitle">
+                    Vizualizace Floyd-Warshallova algoritmu
+                </h2>
+
+            </div>
+
+            <div id="runState" class="run-state ready">
+                Připraveno
+            </div>
+
+        </header>
+
+        <section class="workspace">
+
+            <article class="panel graph-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <h3 data-i18n="graphTitle">
+                            Orientovaný ohodnocený graf
+                        </h3>
+
+                        <p data-i18n="graphSubtitle">
+                            Hrany představují počáteční vzdálenosti.
+                        </p>
+                    </div>
+
+                    <div class="iteration-pill">
+
+                        <span>k</span>
+                        <strong id="iterationNodeValue">-</strong>
+
+                    </div>
+
+                </div>
+
+                <div id="graph" class="graph">
+
+                    <svg
+                        id="graphSvg"
+                        viewBox="0 0 720 430"
+                        aria-label="Weighted directed graph"
+                    ></svg>
+
+                </div>
+
+            </article>
+
+            <article class="panel matrix-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <h3 data-i18n="matrixTitle">
+                            Matice vzdáleností
+                        </h3>
+
+                        <p data-i18n="matrixSubtitle">
+                            Nejlepší známé vzdálenosti mezi všemi uzly.
+                        </p>
+                    </div>
+
+                    <button
+                        id="showInitialBtn"
+                        class="small-button"
+                        type="button"
+                        data-i18n="showInitial"
+                    >
+                        Počáteční matice
+                    </button>
+
+                </div>
+
+                <div class="matrix-wrapper">
+
+                    <table id="distanceMatrix"></table>
+
+                </div>
+
+            </article>
+
+        </section>
+
+        <section class="lower-layout">
+
+            <article class="panel calculation-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <h3 data-i18n="calculationTitle">
+                            Výpočet aktuální buňky
+                        </h3>
+
+                        <p data-i18n="calculationSubtitle">
+                            Porovnání přímé cesty a cesty přes mezivrchol.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="formula">
+
+                    <div class="formula-variable">
+
+                        <span>dist[i][j]</span>
+
+                        <strong id="directValue">-</strong>
+
+                    </div>
+
+                    <span class="formula-symbol">vs</span>
+
+                    <div class="formula-route">
+
+                        <div class="formula-variable">
+
+                            <span>dist[i][k]</span>
+
+                            <strong id="firstPartValue">-</strong>
+
+                        </div>
+
+                        <span class="formula-symbol">+</span>
+
+                        <div class="formula-variable">
+
+                            <span>dist[k][j]</span>
+
+                            <strong id="secondPartValue">-</strong>
+
+                        </div>
+
+                    </div>
+
+                    <span class="formula-symbol">=</span>
+
+                    <div class="formula-variable candidate">
+
+                        <span data-i18n="candidate">
+                            Kandidát
+                        </span>
+
+                        <strong id="candidateValue">-</strong>
+
+                    </div>
+
+                </div>
+
+                <div id="comparisonResult" class="comparison-result neutral">
+                    -
+                </div>
+
+            </article>
+
+            <article class="panel status-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <h3 data-i18n="statusTitle">
+                            Co se právě děje?
+                        </h3>
+
+                        <p data-i18n="statusSubtitle">
+                            Aktuální krok algoritmu.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div id="statusText" class="status-text"></div>
+
+                <div class="progress">
+
+                    <div class="progress-track">
+
+                        <div id="progressBar" class="progress-bar"></div>
+
+                    </div>
+
+                    <span id="progressValue">0 %</span>
+
+                </div>
+
+            </article>
+
+        </section>
+
+        <section class="panel explanation-panel">
+
+            <div class="panel-heading">
+
+                <div>
+                    <h3 data-i18n="explanationTitle">
+                        Jak Floyd-Warshall funguje?
+                    </h3>
+                </div>
+
+            </div>
+
+            <div id="explanationText" class="explanation-text"></div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
