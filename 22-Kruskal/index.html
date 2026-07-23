@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Interactive Kruskal's Algorithm visualization."
+    >
+
+    <title>Kruskal's Algorithm Visualizer</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <span class="algorithm-number" data-i18n="algorithmNumber">
+                Algoritmus #22
+            </span>
+
+            <h1>Kruskal</h1>
+
+            <p data-i18n="subtitle">
+                Minimální kostra grafu pomocí třídění hran a Union-Find.
+            </p>
+
+        </div>
+
+        <div class="language-switch">
+
+            <button
+                id="czBtn"
+                class="language-btn active"
+                type="button"
+            >
+                🇨🇿 CZ
+            </button>
+
+            <button
+                id="enBtn"
+                class="language-btn"
+                type="button"
+            >
+                🇬🇧 EN
+            </button>
+
+        </div>
+
+        <section class="sidebar-section">
+
+            <h2 data-i18n="controlsTitle">
+                Ovládání
+            </h2>
+
+            <div class="control-grid">
+
+                <button
+                    id="startBtn"
+                    class="button button-primary"
+                    type="button"
+                    data-i18n="start"
+                >
+                    ▶ Start
+                </button>
+
+                <button
+                    id="pauseBtn"
+                    class="button button-secondary"
+                    type="button"
+                    data-i18n="pause"
+                >
+                    ⏸ Pauza
+                </button>
+
+                <button
+                    id="stepBtn"
+                    class="button button-secondary"
+                    type="button"
+                    data-i18n="step"
+                >
+                    ⏭ Krok
+                </button>
+
+                <button
+                    id="resetBtn"
+                    class="button button-danger"
+                    type="button"
+                    data-i18n="reset"
+                >
+                    ↻ Reset
+                </button>
+
+                <button
+                    id="randomBtn"
+                    class="button button-purple full"
+                    type="button"
+                    data-i18n="randomGraph"
+                >
+                    🎲 Náhodný graf
+                </button>
+
+            </div>
+
+        </section>
+
+        <section class="sidebar-section">
+
+            <h2 data-i18n="speedTitle">
+                Rychlost animace
+            </h2>
+
+            <input
+                id="speedRange"
+                type="range"
+                min="200"
+                max="1800"
+                step="100"
+                value="800"
+            >
+
+            <div class="range-labels">
+                <span data-i18n="fast">Rychle</span>
+                <strong id="speedValue">800 ms</strong>
+                <span data-i18n="slow">Pomalu</span>
+            </div>
+
+        </section>
+
+        <section class="sidebar-section">
+
+            <h2 data-i18n="statisticsTitle">
+                Statistiky
+            </h2>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <span data-i18n="processedEdges">
+                        Zpracované hrany
+                    </span>
+
+                    <strong id="processedValue">0</strong>
+                </div>
+
+                <div class="stat">
+                    <span data-i18n="acceptedEdges">
+                        Přidané hrany
+                    </span>
+
+                    <strong id="acceptedValue">0</strong>
+                </div>
+
+                <div class="stat">
+                    <span data-i18n="rejectedEdges">
+                        Odmítnuté hrany
+                    </span>
+
+                    <strong id="rejectedValue">0</strong>
+                </div>
+
+                <div class="stat">
+                    <span data-i18n="mstWeight">
+                        Váha MST
+                    </span>
+
+                    <strong id="weightValue">0</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="sidebar-section">
+
+            <h2 data-i18n="legendTitle">
+                Legenda
+            </h2>
+
+            <div class="legend">
+
+                <div>
+                    <span class="legend-line default"></span>
+                    <span data-i18n="legendDefault">
+                        Nezpracovaná hrana
+                    </span>
+                </div>
+
+                <div>
+                    <span class="legend-line current"></span>
+                    <span data-i18n="legendCurrent">
+                        Kontrolovaná hrana
+                    </span>
+                </div>
+
+                <div>
+                    <span class="legend-line accepted"></span>
+                    <span data-i18n="legendAccepted">
+                        Hrana v MST
+                    </span>
+                </div>
+
+                <div>
+                    <span class="legend-line rejected"></span>
+                    <span data-i18n="legendRejected">
+                        Odmítnutá hrana
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <span class="eyebrow" data-i18n="eyebrow">
+                    Minimum Spanning Tree
+                </span>
+
+                <h2 data-i18n="pageTitle">
+                    Vizualizace Kruskalova algoritmu
+                </h2>
+
+            </div>
+
+            <div id="runState" class="run-state ready">
+                Připraveno
+            </div>
+
+        </header>
+
+        <section class="workspace">
+
+            <article class="panel graph-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <h3 data-i18n="graphTitle">
+                            Ohodnocený neorientovaný graf
+                        </h3>
+
+                        <p data-i18n="graphSubtitle">
+                            Nejlevnější hrany se postupně přidávají do minimální kostry.
+                        </p>
+                    </div>
+
+                    <div class="mst-pill">
+
+                        <span data-i18n="mstEdges">
+                            Hrany MST
+                        </span>
+
+                        <strong id="mstEdgeCount">0 / 5</strong>
+
+                    </div>
+
+                </div>
+
+                <div class="graph">
+
+                    <svg
+                        id="graphSvg"
+                        viewBox="0 0 760 520"
+                        aria-label="Weighted undirected graph"
+                    ></svg>
+
+                </div>
+
+            </article>
+
+            <article class="panel edges-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <h3 data-i18n="edgeListTitle">
+                            Seřazené hrany
+                        </h3>
+
+                        <p data-i18n="edgeListSubtitle">
+                            Hrany jsou zpracovány od nejnižší váhy.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div id="edgeList" class="edge-list"></div>
+
+            </article>
+
+        </section>
+
+        <section class="lower-layout">
+
+            <article class="panel union-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <h3 data-i18n="unionTitle">
+                            Union-Find komponenty
+                        </h3>
+
+                        <p data-i18n="unionSubtitle">
+                            Uzly ve stejné skupině jsou již propojené.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div id="setsContainer" class="sets-container"></div>
+
+            </article>
+
+            <article class="panel decision-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <h3 data-i18n="decisionTitle">
+                            Rozhodnutí algoritmu
+                        </h3>
+
+                        <p data-i18n="decisionSubtitle">
+                            Kontrola, zda hrana vytvoří cyklus.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="decision-grid">
+
+                    <div class="decision-item">
+                        <span data-i18n="currentEdge">
+                            Aktuální hrana
+                        </span>
+
+                        <strong id="currentEdgeValue">-</strong>
+                    </div>
+
+                    <div class="decision-item">
+                        <span data-i18n="currentWeight">
+                            Váha
+                        </span>
+
+                        <strong id="currentWeightValue">-</strong>
+                    </div>
+
+                    <div class="decision-item">
+                        <span data-i18n="componentA">
+                            Komponenta 1
+                        </span>
+
+                        <strong id="componentAValue">-</strong>
+                    </div>
+
+                    <div class="decision-item">
+                        <span data-i18n="componentB">
+                            Komponenta 2
+                        </span>
+
+                        <strong id="componentBValue">-</strong>
+                    </div>
+
+                </div>
+
+                <div id="decisionResult" class="decision-result neutral">
+                    -
+                </div>
+
+            </article>
+
+        </section>
+
+        <section class="lower-layout">
+
+            <article class="panel status-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <h3 data-i18n="statusTitle">
+                            Co se právě děje?
+                        </h3>
+
+                        <p data-i18n="statusSubtitle">
+                            Aktuální krok algoritmu.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div id="statusText" class="status-text"></div>
+
+                <div class="progress">
+
+                    <div class="progress-track">
+                        <div id="progressBar" class="progress-bar"></div>
+                    </div>
+
+                    <span id="progressValue">0 %</span>
+
+                </div>
+
+            </article>
+
+            <article class="panel result-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <h3 data-i18n="resultTitle">
+                            Výsledek
+                        </h3>
+
+                        <p data-i18n="resultSubtitle">
+                            Aktuálně vybrané hrany minimální kostry.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div id="mstResult" class="mst-result"></div>
+
+                <div class="total-weight">
+
+                    <span data-i18n="totalWeight">
+                        Celková váha MST
+                    </span>
+
+                    <strong id="totalWeightValue">0</strong>
+
+                </div>
+
+            </article>
+
+        </section>
+
+        <section class="panel explanation-panel">
+
+            <div class="panel-heading">
+
+                <div>
+                    <h3 data-i18n="explanationTitle">
+                        Jak Kruskalův algoritmus funguje?
+                    </h3>
+                </div>
+
+            </div>
+
+            <div id="explanationText" class="explanation-text"></div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
